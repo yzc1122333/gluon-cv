@@ -396,7 +396,7 @@ class YOLOV3(gluon.HybridBlock):
                 all_preds = [F.concat(*p, dim=1) for p in [
                     all_objectness, all_box_centers, all_box_scales, all_class_pred]]
                 all_targets = self._target_generator(box_preds, *args)
-                return self._loss(*(all_preds + all_targets))
+                return self._loss(*(all_preds + all_targets)), box_preds
 
             # return raw predictions, this is only used in DataLoader transform function.
             return (F.concat(*all_detections, dim=1), all_anchors, all_offsets, all_feat_maps,
